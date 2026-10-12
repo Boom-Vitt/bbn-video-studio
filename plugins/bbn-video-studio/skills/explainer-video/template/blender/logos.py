@@ -1,4 +1,6 @@
-# The three AI logos as 3D objects (extruded + bevelled from the official SVG shapes, Wikimedia Commons).
+# Brand logos as 3D objects (extruded + bevelled from the official SVG marks). The template ships no logo files:
+# download each official SVG per story (Wikimedia Commons, send a User-Agent header) into ref/logos/ under the name
+# below; missing ones are skipped. Add a row for any other brand.
 # Exports video/public/logos/<name>.glb and renders a hero preview per logo.
 #   python3 blender/run.py blender/logos.py -- <project_abs_dir> [preview]
 P = ARGS[0]
@@ -41,6 +43,10 @@ def gradient(t):
     return GEMINI[-1][1]
 
 
+import os
+LOGOS = [l for l in LOGOS if os.path.exists(f'{P}/ref/logos/{l[1]}')]
+if not LOGOS:
+    print('no logo SVGs in ref/logos: nothing to build')
 made = []
 for name, svg, ext, bev in LOGOS:
     before = set(bpy.data.objects)
@@ -86,7 +92,7 @@ for name, svg, ext, bev in LOGOS:
     made.append(obj)
     print(name, [round(d, 3) for d in obj.dimensions])
 
-if PREVIEW:
+if PREVIEW and made:
     sc = bpy.context.scene
     eevee(sc, samples=32, motion_blur=False, volumes=True)
     world_fog(0.012, (0.01, 0.015, 0.03))

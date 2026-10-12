@@ -5,7 +5,7 @@
 set -euo pipefail
 URL="${1:?url}"; OUT="${2:?outdir}"; LANG_HINT="${3:-}"
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
-VENV="${CLAUDE_SONG_VENV:-$HOME/.cache/claude-song-bbn/venv}"
+VENV="${BBN_VIDEO_VENV:-$HOME/.venvs/bbn-video-studio}"
 mkdir -p "$OUT/frames" "$OUT/sheets"
 cd "$OUT"
 yt-dlp --skip-download --print "%(title)s | %(uploader)s | %(duration)ss" --print description "$URL" > metadata.txt 2>/dev/null || true

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Scaffold a claude-song project: <dir>/song (lyrics, style, scene map) + <dir>/video (three.js engine).
+# Scaffold a music-video project: <dir>/song (lyrics, style, scene map) + <dir>/video (three.js engine).
 # Also prepares the shared Python venv (mlx-whisper + librosa) used for alignment.
 #   new_project.sh <dir>
 set -euo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
 DIR="${1:?usage: new_project.sh <dir>}"
-VENV="${CLAUDE_SONG_VENV:-$HOME/.cache/claude-song-bbn/venv}"
+VENV="${BBN_VIDEO_VENV:-$HOME/.venvs/bbn-video-studio}"
 mkdir -p "$DIR"
 [ -e "$DIR/video/package.json" ] && { echo "refusing: $DIR/video already exists"; exit 1; }
 cp -R "$SKILL/template/." "$DIR/"

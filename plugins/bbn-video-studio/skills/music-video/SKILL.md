@@ -1,17 +1,17 @@
 ---
-name: claude-song-bbn
+name: music-video
 description: >-
   Make an original AI music video end to end: write a song (Thai by default, any language works), generate it with
-  phaya/Suno, build a three.js + TypeScript kinetic-typography MV synced to the vocal, render a 1080p MP4 and save it to
+  local ACE-Step 1.5 (free) or phaya/Suno, build a three.js + TypeScript kinetic-typography MV synced to the vocal, render a 1080p MP4 and save it to
   ~/Downloads. It can study a reference music video (YouTube link) and create a "sister" piece that copies its craft
   and structure but never its lyrics, melody, imagery or palette. Use this whenever the user wants to make a song, MV,
   music video, lyric video, satirical/office song, "ทำเพลง", "แต่งเพลง", "ทำ MV", "มิวสิกวิดีโอ", "เพลงล้อเลียน",
   pastes a music-video link and says recreate / mimic / "ทำแบบนี้แต่ไม่เหมือน" / "extract and recreate", or asks for
   another song like รับทราบครับ (Noted) or LGTM. Also use it to re-time, edit scenes of, or re-render an existing
-  claude-song project (folders song/ + video/ with tools/render.mjs).
+  music-video project (folders song/ + video/ with tools/render.mjs).
 ---
 
-# claude-song-bbn
+# music-video
 
 Pipeline proven on "รับทราบครับ (Noted)" (Thai nu-disco, 3:45, 21 scenes); see `examples/noted/cover.jpg` and
 `overview.jpg` for the quality bar.
@@ -25,8 +25,9 @@ Lyrics/scenes are keyed to line ids, not seconds, so the video can be built on a
 song is generating (or blocked) and re-timed afterwards with no scene edits.
 
 ## 0. Preflight (one command each, don't over-check)
-`yt-dlp`, `ffmpeg`, `node`, Google Chrome, Apple-silicon Python (mlx-whisper). phaya: `mcp__claude_ai_phaya__get_balance`
-needs ≥ 3 credits; if the MCP 401s, use the REST route in `references/phaya.md`.
+`yt-dlp`, `ffmpeg`, `node`, Google Chrome, Apple-silicon Python (mlx-whisper). Music: local ACE-Step
+(free; install in the plugin README) or phaya: `mcp__claude_ai_phaya__get_balance` needs ≥ 3 credits; if the MCP 401s,
+use the REST route in `references/phaya.md`. `$SKILL` = this skill's folder (the base directory shown when it loads).
 
 ## 1. Study the reference (when the user gives one)
 ```bash
@@ -40,12 +41,15 @@ Tell the user in a few words what you found.
 New story, new local hook, same skeleton. Write `song/lyrics.txt` (≤ 2000 chars, section tags) and `song/style.txt`
 (≤ 100 chars). Get one sign-off (concept line + chorus preview), then go.
 
-## 3. Song → `references/phaya.md`
-Generate (3 credits, 2 takes) as early as possible; keep building while it renders. Takes land in `song/take{0,1}.wav`.
+## 3. Song: local ACE-Step or phaya (`references/phaya.md`)
+Generate 2 takes as early as possible; keep building while it renders. Takes land in `song/take{0,1}.wav`.
+Local (free, one heavy job at a time): `"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python
+"$SKILL"/../explainer-video/scripts/music.py song --bpm <bpm> --key "<key>" --duration <s> --lang th --seeds 1,2`
+(reads song/lyrics.txt + song/style.txt). phaya: 3 credits for 2 takes, key only in `PHAYA_API_KEY`.
 
 ## 4. Project → `references/engine.md`
 ```bash
-scripts/new_project.sh <project-dir>      # copies template/, npm install, shared whisper venv
+"$SKILL"/scripts/new_project.sh <project-dir>      # copies template/, npm install, shared whisper venv
 cd <project-dir>/video && node tools/cues.mjs   # grid timing until the song is aligned
 ```
 Re-theme for this song: `C.accent` + ink/paper tones in `kit.ts` (scenes reference `C.accent`, never a named hue),
@@ -54,8 +58,7 @@ Write `song/scenes.json` (→ `references/scenes.md`).
 
 ## 5. Scenes → `references/scenes.md`
 Write the first scene yourself (title card with the mascot at frame 0, then a fast dive into the song). Fan the rest
-out to Claude workers (owner preference: Claude, not Codex, for scene motion; Orca when available, else subagents)
-with the brief and spec templates; ask for a draft of every scene first, 2 stills per scene/variant, report in ~15 min; review their stills as tiled
+out to Claude Code subagents (Agent tool, all launched in one message, `run_in_background: true`) with the brief and spec templates; ask for a draft of every scene first, 2 stills per scene/variant, report in ~15 min; review their stills as tiled
 images and send concrete feedback. `examples/noted/scenes/*.ts` show what a finished set looks like — read one or two
 for the bar, don't copy their imagery into a new song.
 

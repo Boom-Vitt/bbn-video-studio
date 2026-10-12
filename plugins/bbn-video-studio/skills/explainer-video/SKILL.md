@@ -1,5 +1,5 @@
 ---
-name: blender-explainer
+name: explainer-video
 description: >-
   Make a ≤45 s vertical (9:16, 1080×1920) 3D explainer short end to end from Claude Code: hook-first narrated
   script, open-source designed TTS narrator (VoxCPM2 Voice Design), photoreal Blender EEVEE scenes rendered through
@@ -9,7 +9,7 @@ description: >-
   "explainer video", "Blender animation", TikTok/Reels/Shorts explainers.
 ---
 
-# blender-explainer
+# explainer-video
 
 Proven on three Thai shorts (~45 s each): a neutral ChatGPT/Claude/Gemini product film, a mascot adventure
 ("where does your message go?") and a privacy explainer. `examples/` holds the first two (scripts, briefs, worker
@@ -37,7 +37,7 @@ music bed + SFX mix ─► render ─► contact-sheet check ─► ~/Downloads 
 - API keys only as inline env vars, never in files. Reply in the user's language, short. No commits unless asked.
 
 ## 0. Setup (once per machine)
-`$SKILL` = this skill's folder (e.g. `~/.claude/skills/blender-explainer`); every other command runs from the
+`$SKILL` = this skill's folder (the base directory shown when the skill loads); every other command runs from the
 project folder.
 ```bash
 "$SKILL"/scripts/setup.sh     # uv venv with voxcpm, mlx-whisper, soundfile, librosa → prints `export PY=...`
@@ -90,12 +90,13 @@ workers. Captions wrap past ~24 Thai chars per phrase: add a space in lyrics.txt
   --python blender/bridge.py > blender/bridge.log 2>&1 &          # wait for "bridge ready" in the log
 python3 blender/run.py blender/logos.py -- $PWD preview           # ref/logos/*.svg → video/public/logos/*.glb
 ```
-Look at `video/out/logos_preview.jpg` before anything else. The brands are listed twice: `LOGOS` in logos.py and
+Logos are not shipped: download each official SVG into `ref/logos/` first (names in `LOGOS`, logos.py). Look at
+`video/out/logos_preview.jpg` before anything else. The brands are listed twice: `LOGOS` in logos.py and
 `BRAND` in props.ts (the page loads every GLB in it) — edit both together; a story without logos drops
 `await loadLogos()` from main.ts. run.py loads seq_lib.py first (eevee, portrait_camera,
 key, smooth_keys, render_range, cam_track, pbr, emission, world_fog; colours are 3-tuples), passes CLI args as
 `ARGS`, and saves JSON printed between `@@JSON`/`@@END` to `--json-out`. Tracebacks show real file:line. Calls run
-one at a time; keep each ≤ ~150 frames. `BLENDER_BRIDGE_PORT` changes the port (default 9876).
+one at a time; keep each ≤ ~150 frames. `BLENDER_BRIDGE_PORT` changes the port (default 9878).
 Shared three.js props live in `video/src/props.ts` (`logo()`, `BRAND`, `mascot()` from `blender/mascot.py`); add
 the story's hero props there before launching workers.
 Thai text only in three.js/DOM; Blender can't shape Thai.

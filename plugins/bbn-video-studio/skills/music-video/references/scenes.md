@@ -17,10 +17,8 @@ in the first scene just before the first sung line. See `examples/noted/scenes/i
 ## Who builds what
 1. Write the first scene yourself — it sets the bar the workers imitate.
 2. Fan the rest out, ~3–4 scenes per worker grouped by song section (verse 1 / chorus / verse 2 / bridge+breakdown /
-   final+outro). With Orca available (`orca status --json` ready + reachable, running in an Orca terminal): one Run,
-   `worker-start --spec "$(cat spec)" --worktree current`, Codex workers with the owner's model/effort, Claude workers
-   for the visually trickiest sections; wait with `scripts/orca_inbox.py`. Without Orca: Agent-tool subagents with the
-   same spec. Workers may only create their own `src/scenes/<id>.ts`.
+   final+outro): Agent-tool subagents, all launched in one message with `run_in_background: true`, each given the
+   brief + its spec. Workers may only create their own `src/scenes/<id>.ts`.
 3. Review each worker's stills as one tiled image (`ffmpeg … xstack`), send concrete visual feedback, release.
 4. Render a full preview, read `scripts/contact_sheet.sh` sheets end to end, fix, re-render.
 

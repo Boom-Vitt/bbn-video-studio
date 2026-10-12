@@ -2,7 +2,7 @@
 # Check every tool the pipeline needs; prints the fix for anything missing.   scripts/doctor.sh
 BLENDER="${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-PY="${PY:-$HOME/.venvs/blender-explainer/bin/python}"
+PY="${PY:-$HOME/.venvs/bbn-video-studio/bin/python}"
 ok() { printf '  ok   %s\n' "$1"; }
 no() { printf '  MISS %s -> %s\n' "$1" "$2"; bad=1; }
 bad=0

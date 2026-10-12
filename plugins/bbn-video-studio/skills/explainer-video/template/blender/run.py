@@ -8,7 +8,7 @@ The bridge runs one call at a time and other workers queue behind you: keep each
 import json, os, re, socket, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PORT = int(os.environ.get('BLENDER_BRIDGE_PORT', '9876'))
+PORT = int(os.environ.get('BLENDER_BRIDGE_PORT', '9878'))
 RESET = '''
 for _c in (bpy.data.objects, bpy.data.meshes, bpy.data.materials, bpy.data.lights, bpy.data.cameras, bpy.data.curves,
            bpy.data.images, bpy.data.node_groups, bpy.data.textures, bpy.data.worlds, bpy.data.particles):
@@ -28,7 +28,7 @@ def main():
     parts = [('<prelude>', f'import bpy\nARGS = {args!r}\n' + RESET),
              (lib, open(lib).read()), (os.path.abspath(script), open(script).read())]
     try:
-        token = open(os.path.expanduser(f'~/.cache/blender-explainer/bridge-{PORT}.token')).read().strip()
+        token = open(os.path.expanduser(f'~/.cache/bbn-video-studio/bridge-{PORT}.token')).read().strip()
         s = socket.create_connection(('127.0.0.1', PORT))
     except (FileNotFoundError, ConnectionRefusedError):
         sys.exit('Blender bridge is not running. Start it once (see blender/bridge.py), then retry.')

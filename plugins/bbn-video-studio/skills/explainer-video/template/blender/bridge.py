@@ -1,15 +1,15 @@
 """One headless Blender shared by every worker (and every project) on this machine; blender/run.py sends it scripts.
 Launch it once (parallel Blender launches crash while compiling GPU kernels):
   "${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}" --background --factory-startup --python blender/bridge.py
-Port $BLENDER_BRIDGE_PORT (default 9876), 127.0.0.1 only. Each start writes a fresh random token to
-~/.cache/blender-explainer/bridge-<port>.token (dir 0700, file 0600); calls without it are refused.
+Port $BLENDER_BRIDGE_PORT (default 9878; 9876 is the Blender MCP addon's), 127.0.0.1 only. Each start writes a fresh random token to
+~/.cache/bbn-video-studio/bridge-<port>.token (dir 0700, file 0600); calls without it are refused.
 One call runs at a time, the rest wait in the accept queue.
 """
 import contextlib, io, json, os, secrets, socket, tempfile, time, traceback
 import bpy
 
-PORT = int(os.environ.get('BLENDER_BRIDGE_PORT', '9876'))
-TOKEN_DIR = os.path.expanduser('~/.cache/blender-explainer')
+PORT = int(os.environ.get('BLENDER_BRIDGE_PORT', '9878'))
+TOKEN_DIR = os.path.expanduser('~/.cache/bbn-video-studio')
 MAX_IN, MAX_OUT, IO_S = 64 << 20, 1 << 20, 60  # request bytes, reply chars, socket deadline (s)
 TOKEN = secrets.token_hex(16)
 
