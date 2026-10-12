@@ -1,0 +1,7 @@
+[
+ {"scene": "hook", "from": "hook-1"},
+ {"scene": "chatgpt", "from": "chatgpt-1"},
+ {"scene": "claude", "from": "claude-1"},
+ {"scene": "gemini", "from": "gemini-1"},
+ {"scene": "outro", "from": "outro-1"}
+]

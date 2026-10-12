@@ -1,0 +1,5 @@
+node_modules/
+video/out/
+video/public/cues.json
+video/public/song.mp3
+song/*.wav

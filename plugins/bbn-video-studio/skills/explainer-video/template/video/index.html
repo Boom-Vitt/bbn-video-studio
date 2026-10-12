@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เลือก AI ให้ตรงงาน</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+    #frame { position: absolute; left: 50%; top: 50%; width: 1080px; height: 1920px; transform-origin: 0 0; overflow: hidden; }
+    #frame > canvas, #overlay { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+    #overlay { pointer-events: none; }
+    #hud { position: fixed; left: 8px; bottom: 8px; font: 12px monospace; color: #fff8; z-index: 9; }
+  </style>
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div id="frame"><div id="overlay"></div></div>
+  <div id="hud"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

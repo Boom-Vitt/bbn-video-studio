@@ -1,0 +1,287 @@
+{
+ "duration": 220.392,
+ "bpm": 123.047,
+ "offset": 0.093,
+ "lines": [
+  {
+   "id": "intro-1",
+   "start": 2.66,
+   "end": 6.3
+  },
+  {
+   "id": "intro-2",
+   "start": 7.04,
+   "end": 13.3
+  },
+  {
+   "id": "verse1-1",
+   "start": 15.56,
+   "end": 18.86
+  },
+  {
+   "id": "verse1-2",
+   "start": 18.98,
+   "end": 22.72
+  },
+  {
+   "id": "verse1-3",
+   "start": 22.84,
+   "end": 26.52
+  },
+  {
+   "id": "verse1-4",
+   "start": 26.64,
+   "end": 30.76
+  },
+  {
+   "id": "verse1-5",
+   "start": 30.88,
+   "end": 34.1
+  },
+  {
+   "id": "verse1-6",
+   "start": 34.22,
+   "end": 38.3
+  },
+  {
+   "id": "verse1-7",
+   "start": 38.42,
+   "end": 42.08
+  },
+  {
+   "id": "verse1-8",
+   "start": 42.2,
+   "end": 46.1
+  },
+  {
+   "id": "prechorus-1",
+   "start": 46.64,
+   "end": 50.18
+  },
+  {
+   "id": "prechorus-2",
+   "start": 50.3,
+   "end": 54.6
+  },
+  {
+   "id": "chorus-1",
+   "start": 55.98,
+   "end": 59.1
+  },
+  {
+   "id": "chorus-2",
+   "start": 59.32,
+   "end": 62.86
+  },
+  {
+   "id": "chorus-3",
+   "start": 62.98,
+   "end": 67.04
+  },
+  {
+   "id": "chorus-4",
+   "start": 67.16,
+   "end": 71.24
+  },
+  {
+   "id": "chorus-5",
+   "start": 71.36,
+   "end": 74.76
+  },
+  {
+   "id": "chorus-6",
+   "start": 74.88,
+   "end": 78.64
+  },
+  {
+   "id": "chorus-7",
+   "start": 78.76,
+   "end": 82.74
+  },
+  {
+   "id": "chorus-8",
+   "start": 82.86,
+   "end": 87.7
+  },
+  {
+   "id": "postchorus-1",
+   "start": 87.86,
+   "end": 89.48
+  },
+  {
+   "id": "postchorus-2",
+   "start": 89.6,
+   "end": 91.12
+  },
+  {
+   "id": "postchorus-3",
+   "start": 91.24,
+   "end": 93.2
+  },
+  {
+   "id": "verse2-1",
+   "start": 94.36,
+   "end": 97.38
+  },
+  {
+   "id": "verse2-2",
+   "start": 97.5,
+   "end": 101.7
+  },
+  {
+   "id": "verse2-3",
+   "start": 101.82,
+   "end": 105.54
+  },
+  {
+   "id": "verse2-4",
+   "start": 105.66,
+   "end": 108.74
+  },
+  {
+   "id": "verse2-5",
+   "start": 108.86,
+   "end": 112.78
+  },
+  {
+   "id": "verse2-6",
+   "start": 112.9,
+   "end": 116.66
+  },
+  {
+   "id": "verse2-7",
+   "start": 116.78,
+   "end": 120.92
+  },
+  {
+   "id": "verse2-8",
+   "start": 121.04,
+   "end": 124.7
+  },
+  {
+   "id": "chorus2-1",
+   "start": 125.1,
+   "end": 128.02
+  },
+  {
+   "id": "chorus2-2",
+   "start": 128.14,
+   "end": 131.96
+  },
+  {
+   "id": "chorus2-3",
+   "start": 132.08,
+   "end": 136.1
+  },
+  {
+   "id": "chorus2-4",
+   "start": 136.22,
+   "end": 140.32
+  },
+  {
+   "id": "chorus2-5",
+   "start": 140.44,
+   "end": 143.88
+  },
+  {
+   "id": "chorus2-6",
+   "start": 144.0,
+   "end": 147.74
+  },
+  {
+   "id": "chorus2-7",
+   "start": 147.86,
+   "end": 151.86
+  },
+  {
+   "id": "chorus2-8",
+   "start": 151.98,
+   "end": 156.7
+  },
+  {
+   "id": "bridge-1",
+   "start": 156.88,
+   "end": 160.48
+  },
+  {
+   "id": "bridge-2",
+   "start": 160.6,
+   "end": 163.62
+  },
+  {
+   "id": "bridge-3",
+   "start": 163.74,
+   "end": 167.52
+  },
+  {
+   "id": "bridge-4",
+   "start": 167.64,
+   "end": 171.28
+  },
+  {
+   "id": "bridge-5",
+   "start": 171.4,
+   "end": 175.2
+  },
+  {
+   "id": "breakdown-1",
+   "start": 175.32,
+   "end": 177.32
+  },
+  {
+   "id": "breakdown-2",
+   "start": 177.44,
+   "end": 179.28
+  },
+  {
+   "id": "breakdown-3",
+   "start": 179.4,
+   "end": 181.2
+  },
+  {
+   "id": "breakdown-4",
+   "start": 181.32,
+   "end": 183.82
+  },
+  {
+   "id": "breakdown-5",
+   "start": 183.94,
+   "end": 186.48
+  },
+  {
+   "id": "finalchorus-1",
+   "start": 186.6,
+   "end": 189.96
+  },
+  {
+   "id": "finalchorus-2",
+   "start": 190.08,
+   "end": 193.38
+  },
+  {
+   "id": "finalchorus-3",
+   "start": 193.5,
+   "end": 197.96
+  },
+  {
+   "id": "finalchorus-4",
+   "start": 198.08,
+   "end": 201.7
+  },
+  {
+   "id": "finalchorus-5",
+   "start": 201.82,
+   "end": 207.8
+  },
+  {
+   "id": "outro-1",
+   "start": 207.94,
+   "end": 211.9
+  },
+  {
+   "id": "outro-2",
+   "start": 212.9,
+   "end": 218.5
+  }
+ ]
+}

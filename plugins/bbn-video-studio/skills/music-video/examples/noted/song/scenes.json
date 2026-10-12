@@ -1,0 +1,23 @@
+[
+  {"scene": "intro-chat",     "from": "intro-1"},
+  {"scene": "seminar",        "from": "verse1-1"},
+  {"scene": "pages",          "from": "verse1-3"},
+  {"scene": "shrink",         "from": "verse1-4"},
+  {"scene": "meeting",        "from": "verse1-7"},
+  {"scene": "page47",         "from": "prechorus-1"},
+  {"scene": "chorus-bubbles", "from": "chorus-1"},
+  {"scene": "chorus-forward", "from": "chorus-5"},
+  {"scene": "seen",           "from": "postchorus-1"},
+  {"scene": "legal",          "from": "verse2-1"},
+  {"scene": "thumb",          "from": "verse2-3"},
+  {"scene": "night-bot",      "from": "verse2-5"},
+  {"scene": "tokens",         "from": "verse2-7"},
+  {"scene": "chorus-bubbles", "from": "chorus2-1"},
+  {"scene": "chorus-forward", "from": "chorus2-5"},
+  {"scene": "letter",         "from": "bridge-1"},
+  {"scene": "bot-reply",      "from": "bridge-4"},
+  {"scene": "evidence",       "from": "breakdown-1"},
+  {"scene": "recursion",      "from": "finalchorus-1"},
+  {"scene": "lights-out",     "from": "finalchorus-3"},
+  {"scene": "outro",          "from": "outro-1"}
+]
