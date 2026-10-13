@@ -6,8 +6,11 @@ open-source ACE-Step; use it only when the user picked it.
 ## Access (tell the user when they have no account or key)
 1. Sign up at **https://phaya.io**, top up credits (≥ 3 per song request).
 2. Copy the API key from the phaya.io dashboard.
-3. Either connect the phaya connector in Claude (Route 1), or give the key to this session as an env var (Route 2).
-   Never write it to a file; if they paste it in chat, warn them to rotate it afterwards.
+3. Easiest: run `scripts/phaya_music.sh login` for them (Bash timeout 330000 ms). A popup asks for the key with
+   hidden input (macOS dialog, or the Windows credential box from Git Bash), checks it against phaya and saves it
+   for this user: macOS Keychain item `bbn-video-studio-phaya`, or `%APPDATA%\bbn-video-studio\phaya.key`
+   encrypted for the Windows user (DPAPI). Asked once; `logout` forgets it. Or connect the phaya connector in
+   Claude (Route 1). Never ask for the key in chat; if they paste it there anyway, warn them to rotate it.
 
 ## Route 1 — MCP (try first)
 `mcp__claude_ai_phaya__get_balance` → need ≥ 3 credits. Then `generate_music(prompt=<lyrics>, style=<style>,
@@ -16,12 +19,11 @@ audio URLs with `scripts/phaya_music.sh fetch <project> <url0> <url1>`.
 
 ## Route 2 — REST (when the MCP connector fails)
 Seen in practice: the claude.ai connector kept answering HTTP 401 "API Key ไม่ถูกต้องหรือถูกระงับ" even after the
-user topped up and reconnected, because the running session caches the old key. Ask the user for their phaya API key
-(phaya.io dashboard). If they paste it in chat, warn them to rotate it afterwards. Keep it in an env var only, never in
-a file:
+user topped up and reconnected, because the running session caches the old key. Use the key saved by `login`
+(above); `PHAYA_API_KEY` in the environment overrides it for terminal users:
 
 ```bash
-export PHAYA_API_KEY='pk_…'
+scripts/phaya_music.sh login     # once: popup, key saved for this user
 scripts/phaya_music.sh balance
 scripts/phaya_music.sh generate <project> "<title>" f V5   # reads song/lyrics.txt + song/style.txt, polls, downloads takes
 ```

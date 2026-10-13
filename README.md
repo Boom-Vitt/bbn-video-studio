@@ -83,8 +83,13 @@ echo 'export PY=$HOME/.venvs/bbn-video-studio/bin/python' >> ~/.zshrc && source 
 ทุกครั้งที่จะสร้างเพลง (เพลงร้องของ `music-video` หรือดนตรีประกอบของ `short-ex-3d`) Claude จะถามให้เลือก:
 1. **โอเพนซอร์ส (ฟรี)** — ACE-Step 1.5 รันในเครื่อง ไม่ต้องมีบัญชี ใช้ดิสก์ ~40 GB และ RAM 32 GB ติดตั้งตามด้านล่าง
 2. **phaya API (เสียเครดิต)** — คุณภาพระดับ Suno ได้ 2 เวอร์ชันใน 1–2 นาที (3 เครดิต) สมัคร เติมเครดิต และคัดลอก
-   API key ได้ที่ **https://phaya.io** แล้วเชื่อม phaya connector ใน Claude หรือตั้ง `PHAYA_API_KEY` เป็นตัวแปร env
-   (ห้ามใส่ key ในไฟล์ ถ้าวาง key ในแชทแล้ว ให้ rotate ทิ้ง)
+   API key ได้ที่ **https://phaya.io**
+
+**ใส่ phaya key แบบง่าย (ไม่ต้องตั้ง env) — ได้ทั้ง macOS และ Windows:** พิมพ์บอก Claude ว่า "ตั้งค่า phaya key"
+→ จะมีหน้าต่างเด้งขึ้นมาให้วาง key (ตัวอักษรถูกซ่อน) กด OK → Claude เช็กกับ phaya ให้ว่าใช้ได้ แล้วเก็บไว้ในเครื่อง
+(Mac: Keychain, Windows: เข้ารหัสด้วยบัญชี Windows ของคุณ) ถามครั้งเดียว ไม่ต้องวาง key ในแชท ไม่อยู่ในไฟล์งาน
+อยากเปลี่ยน key ก็บอกให้ตั้งใหม่ อยากลบบอกว่า "ลบ phaya key" (หรือเชื่อม phaya connector ใน Claude ก็ได้ ส่วนคนถนัด
+terminal ยังตั้ง `PHAYA_API_KEY` ได้เหมือนเดิม)
 
 ติดตั้ง ACE-Step (ทางที่ 1):
 ```bash
