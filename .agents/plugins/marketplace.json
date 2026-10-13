@@ -1,0 +1,20 @@
+{
+  "name": "bbn-video-studio",
+  "interface": {
+    "displayName": "BBN Studio"
+  },
+  "plugins": [
+    {
+      "name": "bbn-video-studio",
+      "source": {
+        "source": "local",
+        "path": "./plugins/bbn-video-studio"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Creativity"
+    }
+  ]
+}

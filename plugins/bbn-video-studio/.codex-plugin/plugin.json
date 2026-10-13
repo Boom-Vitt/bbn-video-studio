@@ -1,0 +1,36 @@
+{
+  "name": "bbn-video-studio",
+  "version": "0.2.1",
+  "description": "Make music videos, short-ex-3d vertical clips and long-ex chaptered explanations with optional external scene workflows.",
+  "author": {
+    "name": "Boom-Vitt"
+  },
+  "homepage": "https://github.com/Boom-Vitt/bbn-video-studio",
+  "repository": "https://github.com/Boom-Vitt/bbn-video-studio",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "music-video",
+    "explainer",
+    "education",
+    "blender",
+    "threejs",
+    "tts",
+    "thai",
+    "short-ex-3d",
+    "long-ex",
+    "hyperframes"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "BBN Studio",
+    "shortDescription": "Music videos, short 3D clips and chaptered explainers",
+    "developerName": "Boom-Vitt",
+    "category": "Creativity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/Boom-Vitt/bbn-video-studio"
+  }
+}

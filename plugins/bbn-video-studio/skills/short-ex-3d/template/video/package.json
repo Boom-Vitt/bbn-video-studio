@@ -1,7 +1,7 @@
 {
-  "name": "explainer-video",
+  "name": "short-ex-3d-engine",
   "version": "1.0.0",
-  "description": "three.js + Blender-plate video engine (explainer-video skill)",
+  "description": "three.js + Blender-plate video engine (short-ex-3d skill)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

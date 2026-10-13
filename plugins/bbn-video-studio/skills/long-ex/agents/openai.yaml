@@ -1,0 +1,4 @@
+interface:
+  display_name: "Long EX"
+  short_description: "Build chaptered explainers with five optional workflows"
+  default_prompt: "Use $long-ex to build a chaptered explanatory video about this topic."

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Scaffold an explainer-video project: song/ (script, voice, assemble), blender/ (bridge + logos), music/, sfx/, video/ (engine).
+# Scaffold an short-ex-3d project: song/ (script, voice, assemble), blender/ (bridge + logos), music/, sfx/, video/ (engine).
 #   new_story.sh <dir>
 set -euo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"

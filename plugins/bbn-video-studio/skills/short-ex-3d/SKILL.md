@@ -1,5 +1,5 @@
 ---
-name: explainer-video
+name: short-ex-3d
 description: >-
   Make a ≤45 s vertical (9:16, 1080×1920) 3D explainer short end to end from Claude Code: hook-first narrated
   script, open-source designed TTS narrator (VoxCPM2 Voice Design), photoreal Blender EEVEE scenes rendered through
@@ -9,7 +9,10 @@ description: >-
   "explainer video", "Blender animation", TikTok/Reels/Shorts explainers.
 ---
 
-# explainer-video
+# short-ex-3d
+
+Use this skill for short vertical 3D videos. For chaptered explanations or longer lessons, use the sibling
+`long-ex` skill; its timing and output contract are separate from this ≤45 s engine.
 
 Proven on three Thai shorts (~45 s each): a neutral ChatGPT/Claude/Gemini product film, a mascot adventure
 ("where does your message go?") and a privacy explainer. `examples/` holds the first two (scripts, briefs, worker

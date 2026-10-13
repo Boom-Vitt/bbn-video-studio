@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short EX 3D"
+  short_description: "Create narrated vertical 3D explainers up to 45 seconds"
+  default_prompt: "Use $short-ex-3d to make a short vertical 3D explanation of this topic."

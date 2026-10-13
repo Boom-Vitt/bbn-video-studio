@@ -44,7 +44,7 @@ New story, new local hook, same skeleton. Write `song/lyrics.txt` (≤ 2000 char
 ## 3. Song: local ACE-Step or phaya (`references/phaya.md`)
 Generate 2 takes as early as possible; keep building while it renders. Takes land in `song/take{0,1}.wav`.
 Local (free, one heavy job at a time): `"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python
-"$SKILL"/../explainer-video/scripts/music.py song --bpm <bpm> --key "<key>" --duration <s> --lang th --seeds 1,2`
+"$SKILL"/../short-ex-3d/scripts/music.py song --bpm <bpm> --key "<key>" --duration <s> --lang th --seeds 1,2`
 (reads song/lyrics.txt + song/style.txt). phaya: 3 credits for 2 takes, key only in `PHAYA_API_KEY`.
 
 ## 4. Project → `references/engine.md`
