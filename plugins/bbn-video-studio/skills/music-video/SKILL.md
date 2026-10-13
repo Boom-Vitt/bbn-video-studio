@@ -33,9 +33,13 @@ for them:
 1. **Open-source** — ACE-Step 1.5 on this machine (MIT, free, no account). Needs ~40 GB disk, 32 GB RAM, a few
    minutes per take; install from the plugin README. Check: `[ -d "${ACESTEP_HOME:-$HOME/ACE-Step-1.5}/.venv" ]`.
 2. **phaya API** — Suno-quality songs in ~1–2 min, paid credits (3 credits = 2 takes). The user signs up, tops up and
-   copies an API key at **https://phaya.io**, then either connects the phaya connector in Claude (MCP) or sets
-   `PHAYA_API_KEY` as an env var. Check: `mcp__claude_ai_phaya__get_balance` ≥ 3 credits, or `scripts/phaya_music.sh
-   balance`. Details in `references/phaya.md`.
+   copies an API key at **https://phaya.io**. Then give it to the plugin the easy way, no env vars: run
+   `"$SKILL"/scripts/phaya_music.sh login` yourself (Bash timeout 330000 ms). A popup (macOS dialog / Windows
+   credential box) asks for the key with hidden input, checks it with phaya and saves it for this user (macOS
+   Keychain / DPAPI-encrypted in %APPDATA% on Windows): asked once, never in the chat or a project file. Never ask
+   them to paste the key in chat. Alternatives: the phaya connector in Claude (MCP), or `PHAYA_API_KEY` (overrides
+   the saved key). Check: `scripts/phaya_music.sh balance` or `mcp__claude_ai_phaya__get_balance`; forget:
+   `scripts/phaya_music.sh logout`. Details in `references/phaya.md`.
 If neither is ready yet, tell them what each needs and keep building on the 120 BPM grid; swap the song in later.
 
 ## 1. Study the reference (when the user gives one)
@@ -55,7 +59,7 @@ Generate 2 takes as early as possible; keep building while it renders. Takes lan
 Local (free, one heavy job at a time): `"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python
 "$SKILL"/../short-ex-3d/scripts/music.py song --bpm <bpm> --key "<key>" --duration <s> --lang th --seeds 1,2`
 (reads song/lyrics.txt + song/style.txt). phaya (`references/phaya.md`): MCP `generate_music`, or REST
-`scripts/phaya_music.sh generate <project> "<title>" f V5`; 3 credits for 2 takes, key only in `PHAYA_API_KEY`.
+`scripts/phaya_music.sh generate <project> "<title>" f V5`; 3 credits for 2 takes, key from `login` (or `PHAYA_API_KEY`).
 
 ## 4. Project → `references/engine.md`
 ```bash

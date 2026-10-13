@@ -37,7 +37,7 @@ music bed + SFX mix ─► render ─► contact-sheet check ─► ~/Downloads 
   recolour them; keep comparisons neutral; credit "logos are trademarks of their owners".
 - One heavy job at a time: VoxCPM, ACE-Step and full renders each take many GB of RAM. Before starting one:
   `pgrep -fl "music.py|render.mjs|vo.py|design.py"` and wait for anything already running.
-- API keys only as inline env vars, never in files. Reply in the user's language, short. No commits unless asked.
+- API keys: the phaya `login` popup (macOS Keychain / Windows DPAPI) or env vars; never in project files or chat. Reply in the user's language, short. No commits unless asked.
 
 ## 0. Setup (once per machine)
 `$SKILL` = this skill's folder (the base directory shown when the skill loads); every other command runs from the
@@ -136,12 +136,13 @@ one brand's mark alone on a neutral end card, badges clipped by the frame edge, 
 ## 7. Music + mix + render
 Music bed: ask the user once and let them pick (never pick for them). Write `music/caption.txt` first (both use it):
 1. **Open-source** — ACE-Step 1.5 locally (MIT, free, ~40 GB, install from the plugin README).
-2. **phaya API** — paid credits (3 = 2 takes), fast; sign up, top up and copy the API key at **https://phaya.io**.
+2. **phaya API** — paid credits (3 = 2 takes), fast; sign up, top up and copy the API key at **https://phaya.io**,
+   then run `"$SKILL"/../music-video/scripts/phaya_music.sh login` once (popup asks for the key, saves it; no env).
    `music/lyrics.txt` = `[Instrumental]` sends an instrumental request (prompt = caption, style = its first ≤100 chars).
 3. A licensed track the user supplies, saved as `music/bed.wav` (skip the generate line).
 ```bash
 "${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python "$SKILL"/scripts/music.py music --bpm 118 --key "D minor" --duration 48 --lang en --seeds 1,2   # 1
-PHAYA_SONG_DIR=music PHAYA_API_KEY=... "$SKILL"/../music-video/scripts/phaya_music.sh generate . "<slug> bed"                                    # 2
+PHAYA_SONG_DIR=music "$SKILL"/../music-video/scripts/phaya_music.sh generate . "<slug> bed"                                                    # 2
 ffmpeg -i music/take0.wav -af loudnorm=I=-18:TP=-2 music/bed.wav
 python3 sfx/mix.py                                                  # VO + ducked bed + SFX → video/public/song.mp3
 cd video && node tools/render.mjs --jobs 4 --out out/<slug>.mp4
