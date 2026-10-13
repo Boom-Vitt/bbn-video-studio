@@ -1,16 +1,18 @@
 {
   "name": "bbn-video-studio",
-  "owner": { "name": "Boom-Vitt" },
+  "owner": {
+    "name": "Boom-Vitt"
+  },
   "metadata": {
-    "description": "Claude Code skills that make finished videos end to end: AI music videos and 3D explainer / lesson videos.",
-    "version": "0.1.0"
+    "description": "Video workflows for music videos, short vertical 3D explainers and chaptered longer explanations.",
+    "version": "0.2.1"
   },
   "plugins": [
     {
       "name": "bbn-video-studio",
       "source": "./plugins/bbn-video-studio",
-      "description": "Make music videos (song + kinetic-typography MV) and 3D explainer or lesson videos (Blender + three.js, narrated, captioned) from one prompt.",
-      "version": "0.1.0"
+      "description": "Make music videos, short-ex-3d vertical clips and long-ex chaptered explanations with optional external scene workflows.",
+      "version": "0.2.1"
     }
   ]
 }

@@ -1,10 +1,24 @@
 {
   "name": "bbn-video-studio",
-  "version": "0.1.0",
-  "description": "Make music videos (song + kinetic-typography MV) and 3D explainer or lesson videos (Blender + three.js, narrated, captioned) from one prompt.",
-  "author": { "name": "Boom-Vitt" },
+  "version": "0.2.1",
+  "description": "Make music videos, short-ex-3d vertical clips and long-ex chaptered explanations with optional external scene workflows.",
+  "author": {
+    "name": "Boom-Vitt"
+  },
   "homepage": "https://github.com/Boom-Vitt/bbn-video-studio",
   "repository": "https://github.com/Boom-Vitt/bbn-video-studio",
   "license": "MIT",
-  "keywords": ["video", "music-video", "explainer", "education", "blender", "threejs", "tts", "thai"]
+  "keywords": [
+    "video",
+    "music-video",
+    "explainer",
+    "education",
+    "blender",
+    "threejs",
+    "tts",
+    "thai",
+    "short-ex-3d",
+    "long-ex",
+    "hyperframes"
+  ]
 }

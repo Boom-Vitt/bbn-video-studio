@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "title": "จากคำถามสู่คำอธิบาย",
+  "language": "th",
+  "output": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration_s": 60
+  },
+  "style": {
+    "palette": [
+      "#101827",
+      "#f4f2e8",
+      "#ffd166"
+    ],
+    "fonts": [
+      "IBM Plex Sans Thai"
+    ],
+    "caption_safe_area": "bottom inset; inspect Thai tone marks at final dimensions"
+  },
+  "integrations": [
+    {
+      "id": "hyperframes",
+      "repository": "https://github.com/heygen-com/hyperframes",
+      "license": "Apache-2.0",
+      "decision": "selected",
+      "reason": "Preferred timeline and diagram compositor; runtime still needs verification.",
+      "revision": null,
+      "entrypoint": null,
+      "dependency_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "license_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "commercial_license_ref": null,
+      "workflow_ref": null
+    },
+    {
+      "id": "onetake",
+      "repository": "https://github.com/feitangyuan/onetake",
+      "license": "PolyForm-Noncommercial-1.0.0",
+      "decision": "blocked",
+      "reason": "No valid commercial-license evidence has been supplied.",
+      "revision": null,
+      "entrypoint": null,
+      "dependency_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "license_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "commercial_license_ref": null,
+      "workflow_ref": null
+    },
+    {
+      "id": "collage-broll",
+      "repository": "https://github.com/pyang5166/gbro-collage-broll",
+      "license": "MIT",
+      "decision": "optional",
+      "reason": "Use only for a suitable insert with creative and separate paid-generation approvals.",
+      "revision": null,
+      "entrypoint": null,
+      "dependency_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "license_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "commercial_license_ref": null,
+      "workflow_ref": null
+    },
+    {
+      "id": "claude-animation-base",
+      "repository": "https://github.com/JohnHeibel/ClaudeAnimationBase",
+      "license": "MIT",
+      "decision": "optional",
+      "reason": "Use for a short hand-painted character example if available.",
+      "revision": null,
+      "entrypoint": null,
+      "dependency_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "license_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "commercial_license_ref": null,
+      "workflow_ref": null
+    },
+    {
+      "id": "lemo-opuscar",
+      "repository": "https://github.com/lemomo-ai/lemo-opuscar",
+      "license": "MIT",
+      "decision": "optional",
+      "reason": "Use an available director/style guide or Canvas/WebGL scene when suitable.",
+      "revision": null,
+      "entrypoint": null,
+      "dependency_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "license_check": {
+        "status": "unchecked",
+        "evidence_ref": null
+      },
+      "commercial_license_ref": null,
+      "workflow_ref": null
+    }
+  ],
+  "chapters": [
+    {
+      "id": "question",
+      "title": "คำถาม",
+      "learning_goal": "ตั้งเป้าหมายของคำอธิบาย",
+      "scene_ids": [
+        "question-01"
+      ]
+    },
+    {
+      "id": "explain",
+      "title": "อธิบาย",
+      "learning_goal": "เชื่อมบทพากย์กับภาพ",
+      "scene_ids": [
+        "explain-01"
+      ]
+    },
+    {
+      "id": "recap",
+      "title": "ทบทวน",
+      "learning_goal": "ตรวจผลลัพธ์ก่อนส่ง",
+      "scene_ids": [
+        "recap-01"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "question-01",
+      "chapter": "question",
+      "start_s": 0,
+      "duration_s": 20,
+      "producer": "hyperframes",
+      "narration": {
+        "text": "ก่อนทำวิดีโอ เราต้องรู้ว่าคนดูควรเข้าใจอะไรเมื่อดูจบ",
+        "audio_ref": null,
+        "captions_ref": null,
+        "fact_sources": []
+      },
+      "assets": [],
+      "cost": {
+        "paid": false,
+        "provider": "local",
+        "estimate": 0,
+        "currency": "USD",
+        "approval_ref": null
+      },
+      "approvals": {
+        "metaphor_ref": null,
+        "still_ref": null
+      },
+      "input_fingerprint": null,
+      "status": "planned",
+      "artifacts": [],
+      "qa_ref": null,
+      "handoff_ref": "scenes/question-01/handoff.md"
+    },
+    {
+      "id": "explain-01",
+      "chapter": "explain",
+      "start_s": 20,
+      "duration_s": 20,
+      "producer": "hyperframes",
+      "narration": {
+        "text": "แบ่งคำอธิบายเป็นบท แล้วเลือกภาพที่ช่วยให้แต่ละประเด็นชัดเจน",
+        "audio_ref": null,
+        "captions_ref": null,
+        "fact_sources": []
+      },
+      "assets": [],
+      "cost": {
+        "paid": false,
+        "provider": "local",
+        "estimate": 0,
+        "currency": "USD",
+        "approval_ref": null
+      },
+      "approvals": {
+        "metaphor_ref": null,
+        "still_ref": null
+      },
+      "input_fingerprint": null,
+      "status": "planned",
+      "artifacts": [],
+      "qa_ref": null,
+      "handoff_ref": "scenes/explain-01/handoff.md"
+    },
+    {
+      "id": "recap-01",
+      "chapter": "recap",
+      "start_s": 40,
+      "duration_s": 20,
+      "producer": "hyperframes",
+      "narration": {
+        "text": "ตรวจเสียง คำบรรยาย และภาพร่วมกัน ก่อนส่งวิดีโอพร้อมแหล่งอ้างอิง",
+        "audio_ref": null,
+        "captions_ref": null,
+        "fact_sources": []
+      },
+      "assets": [],
+      "cost": {
+        "paid": false,
+        "provider": "local",
+        "estimate": 0,
+        "currency": "USD",
+        "approval_ref": null
+      },
+      "approvals": {
+        "metaphor_ref": null,
+        "still_ref": null
+      },
+      "input_fingerprint": null,
+      "status": "planned",
+      "artifacts": [],
+      "qa_ref": null,
+      "handoff_ref": "scenes/recap-01/handoff.md"
+    }
+  ]
+}
