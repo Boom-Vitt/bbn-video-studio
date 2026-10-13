@@ -1,6 +1,6 @@
 # Narration VO: trim each song/vo/<id>_<take>.wav to its speech, lay the lines out with the guide's gaps
 # -> song/vo.wav + song/vo.timing.json (exact line times, no whisper needed).
-#   $PY song/vo/assemble.py [clip_dir]   (each line's latest take: _a, _b, ...)
+#   [VO_TEMPO=1.2] $PY song/vo/assemble.py [clip_dir]   (each line's latest take: _a, _b, ...)
 import glob, json, os, re, subprocess, sys, tempfile
 import numpy as np, soundfile as sf
 
@@ -17,7 +17,7 @@ for raw in open(os.path.join(HERE, '..', 'lyrics.txt')):
 GAP = {}  # tight: a 45 s short has no pauses
 LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5
 SR = 48000
-TEMPO = 1.13  # pitch-kept speed-up (ffmpeg atempo): raise until the total fits ≤ 45 s
+TEMPO = float(os.environ.get('VO_TEMPO', '1.30'))  # pitch-kept speed-up (ffmpeg atempo); VO_TEMPO overrides per request
 PAUSE_MAX, PAUSE_TO = 0.28, 0.16  # inner silences longer than this shrink to PAUSE_TO seconds
 
 

@@ -78,8 +78,9 @@ The seed is fixed, so a retake needs changed wording and a new take letter: `vo.
 Other languages: rewrite `SAY`/`spoken()` (Thai number words) and the `DESC` texts; `VO_LANG=en` for vocheck.
 
 ## 4. Assemble + cues (fit ≤ 45 s)
-`song/vo/assemble.py` uses each line's latest take: `TEMPO` (atempo, pitch kept) 1.08–1.2,
-`LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5`. Trim words first, then raise TEMPO until duration ≤ 45.
+`song/vo/assemble.py` uses each line's latest take, sped up with `TEMPO` (atempo, pitch kept), default **1.30**.
+When the user asks for another speed, run it with `VO_TEMPO=<x>` (e.g. `VO_TEMPO=1.15` slower, `1.4` faster).
+`LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5`. Over 45 s: trim words first, then raise VO_TEMPO.
 ```bash
 $PY song/vo/assemble.py && cd video && node tools/cues.mjs --align ../song/vo.timing.json --endcard 0
 ```
