@@ -60,9 +60,17 @@ Layout: `song/` (lyrics.txt, scenes.json, voice/design.py + narrator.wav, myvoic
 
 ## 2. Script → `song/lyrics.txt`
 5 sections × 2 lines (`[hook] [a] [b] [c] [outro]`; unique lowercase a–z0–9 names, they become the line ids
-`hook-1`, `hook-2`, … in vo.py, assemble.py, cues.mjs, scenes.json and mix.py), ~55–60
-Thai words per 10 s of speech. `*word*` = yellow caption keyword. Hook = the viewer's question + the promise
-("สรุปให้จบใน 40 วิ"). `song/scenes.json` maps each scene id to its first line. Loanwords get a spoken spelling in
+`hook-1`, `hook-2`, … in vo.py, assemble.py, cues.mjs, scenes.json and mix.py). `*word*` = yellow caption keyword.
+- **Length = content, not speed.** Aim for 42–45 s at the default 1.30 tempo: ~600 Thai characters of spoken text
+  (lyrics without `*` and newlines) for 10 lines ≈ 43 s; budget ~14 characters per second, then measure after
+  assemble. Too short → add substance (one more sourced number, a comparison, a consequence, what it means for the
+  viewer), never lower VO_TEMPO to fill time. Too long → cut words that repeat what the hook already said.
+- **Hook (two lines, ≈ 9 s).** hook-1 = the viewer's question + the options or stakes, spoken from t≈0.1 s
+  ("มีเงินก้อนนึง ตอนนี้ลงอะไรคุ้มสุด? ทอง พันธบัตร หรือบิตคอยน์"). hook-2 = the most surprising sourced number or
+  contrast + the promise ("ทองร่วงกว่าพันดอลลาร์ ส่วนดอกเบี้ยสหรัฐสูงสุดในรอบ 24 ปี ดูตัวเลขจริงใน 45 วิ"). On screen
+  the hook scene is composed at frame 0 (title + every option visible) and each option or number punches in on its
+  spoken word (take word times from whisper `word_timestamps=True` on song/vo.wav).
+`song/scenes.json` maps each scene id to its first line. Loanwords get a spoken spelling in
 `SAY` (vo.py): ChatGPT→แชตจีพีที, Claude→คล็อด, AI→เอไอ; digits are spelled out by `spoken()`.
 
 ## 3. Voice (VoxCPM2, Apache-2.0, local)
@@ -80,7 +88,8 @@ Other languages: rewrite `SAY`/`spoken()` (Thai number words) and the `DESC` tex
 ## 4. Assemble + cues (fit ≤ 45 s)
 `song/vo/assemble.py` uses each line's latest take, sped up with `TEMPO` (atempo, pitch kept), default **1.30**.
 When the user asks for another speed, run it with `VO_TEMPO=<x>` (e.g. `VO_TEMPO=1.15` slower, `1.4` faster).
-`LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5`. Over 45 s: trim words first, then raise VO_TEMPO.
+`LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5`. Over 45 s: trim words, keep VO_TEMPO. Under ~40 s: add
+content (section 2), keep VO_TEMPO. Change the tempo only when the user asks for a speed.
 ```bash
 $PY song/vo/assemble.py && cd video && node tools/cues.mjs --align ../song/vo.timing.json --endcard 0
 ```
