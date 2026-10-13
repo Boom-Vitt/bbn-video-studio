@@ -1,6 +1,13 @@
 # phaya (song generation)
 
-phaya brokers Suno for text-to-music: 3 credits per request, 2 takes, ~1–2 minutes.
+phaya brokers Suno for text-to-music: 3 credits per request, 2 takes, ~1–2 minutes. It is the paid alternative to
+open-source ACE-Step; use it only when the user picked it.
+
+## Access (tell the user when they have no account or key)
+1. Sign up at **https://phaya.io**, top up credits (≥ 3 per song request).
+2. Copy the API key from the phaya.io dashboard.
+3. Either connect the phaya connector in Claude (Route 1), or give the key to this session as an env var (Route 2).
+   Never write it to a file; if they paste it in chat, warn them to rotate it afterwards.
 
 ## Route 1 — MCP (try first)
 `mcp__claude_ai_phaya__get_balance` → need ≥ 3 credits. Then `generate_music(prompt=<lyrics>, style=<style>,

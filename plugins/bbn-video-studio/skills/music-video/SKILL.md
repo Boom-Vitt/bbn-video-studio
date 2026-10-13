@@ -2,7 +2,7 @@
 name: music-video
 description: >-
   Make an original AI music video end to end: write a song (Thai by default, any language works), generate it with
-  local ACE-Step 1.5 (free) or phaya/Suno, build a three.js + TypeScript kinetic-typography MV synced to the vocal, render a 1080p MP4 and save it to
+  the engine the user picks (open-source ACE-Step 1.5 locally, free; or the phaya API, paid, phaya.io), build a three.js + TypeScript kinetic-typography MV synced to the vocal, render a 1080p MP4 and save it to
   ~/Downloads. It can study a reference music video (YouTube link) and create a "sister" piece that copies its craft
   and structure but never its lyrics, melody, imagery or palette. Use this whenever the user wants to make a song, MV,
   music video, lyric video, satirical/office song, "ทำเพลง", "แต่งเพลง", "ทำ MV", "มิวสิกวิดีโอ", "เพลงล้อเลียน",
@@ -17,7 +17,7 @@ Pipeline proven on "รับทราบครับ (Noted)" (Thai nu-disco, 3
 `overview.jpg` for the quality bar.
 
 ```
-reference URL ─► analyze ─► concept + lyrics ─► phaya song (2 takes) ─► align + verify timing
+reference URL ─► analyze ─► concept + lyrics ─► song: ACE-Step or phaya, user's pick (2 takes) ─► align + verify timing
                                    └─► scaffold engine ─► first scene (you) ─► other scenes (workers) ─► render ─► ~/Downloads
 ```
 
@@ -25,9 +25,18 @@ Lyrics/scenes are keyed to line ids, not seconds, so the video can be built on a
 song is generating (or blocked) and re-timed afterwards with no scene edits.
 
 ## 0. Preflight (one command each, don't over-check)
-`yt-dlp`, `ffmpeg`, `node`, Google Chrome, Apple-silicon Python (mlx-whisper). Music: local ACE-Step
-(free; install in the plugin README) or phaya: `mcp__claude_ai_phaya__get_balance` needs ≥ 3 credits; if the MCP 401s,
-use the REST route in `references/phaya.md`. `$SKILL` = this skill's folder (the base directory shown when it loads).
+`yt-dlp`, `ffmpeg`, `node`, Google Chrome, Apple-silicon Python (mlx-whisper). `$SKILL` = this skill's folder (the
+base directory shown when it loads).
+
+**Song engine: the user's choice.** Before step 3, ask once (in the user's language) and let them pick; never pick
+for them:
+1. **Open-source** — ACE-Step 1.5 on this machine (MIT, free, no account). Needs ~40 GB disk, 32 GB RAM, a few
+   minutes per take; install from the plugin README. Check: `[ -d "${ACESTEP_HOME:-$HOME/ACE-Step-1.5}/.venv" ]`.
+2. **phaya API** — Suno-quality songs in ~1–2 min, paid credits (3 credits = 2 takes). The user signs up, tops up and
+   copies an API key at **https://phaya.io**, then either connects the phaya connector in Claude (MCP) or sets
+   `PHAYA_API_KEY` as an env var. Check: `mcp__claude_ai_phaya__get_balance` ≥ 3 credits, or `scripts/phaya_music.sh
+   balance`. Details in `references/phaya.md`.
+If neither is ready yet, tell them what each needs and keep building on the 120 BPM grid; swap the song in later.
 
 ## 1. Study the reference (when the user gives one)
 ```bash
@@ -41,11 +50,12 @@ Tell the user in a few words what you found.
 New story, new local hook, same skeleton. Write `song/lyrics.txt` (≤ 2000 chars, section tags) and `song/style.txt`
 (≤ 100 chars). Get one sign-off (concept line + chorus preview), then go.
 
-## 3. Song: local ACE-Step or phaya (`references/phaya.md`)
+## 3. Song: the engine the user picked (section 0)
 Generate 2 takes as early as possible; keep building while it renders. Takes land in `song/take{0,1}.wav`.
 Local (free, one heavy job at a time): `"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python
 "$SKILL"/../short-ex-3d/scripts/music.py song --bpm <bpm> --key "<key>" --duration <s> --lang th --seeds 1,2`
-(reads song/lyrics.txt + song/style.txt). phaya: 3 credits for 2 takes, key only in `PHAYA_API_KEY`.
+(reads song/lyrics.txt + song/style.txt). phaya (`references/phaya.md`): MCP `generate_music`, or REST
+`scripts/phaya_music.sh generate <project> "<title>" f V5`; 3 credits for 2 takes, key only in `PHAYA_API_KEY`.
 
 ## 4. Project → `references/engine.md`
 ```bash
