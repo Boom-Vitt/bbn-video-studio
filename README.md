@@ -4,7 +4,7 @@
 
 | สกิล | ได้อะไร |
 |---|---|
-| `music-video` | แต่งเพลง (ไทยหรือภาษาอื่น) → สร้างเพลงด้วย ACE-Step ในเครื่อง (ฟรี) หรือ phaya/Suno → MV แบบ kinetic typography ด้วย three.js ซิงก์กับเนื้อร้อง → MP4 1920×1080 |
+| `music-video` | แต่งเพลง (ไทยหรือภาษาอื่น) → สร้างเพลงด้วยทางที่ผู้ใช้เลือก: ACE-Step โอเพนซอร์สในเครื่อง (ฟรี) หรือ phaya API (phaya.io) → MV แบบ kinetic typography ด้วย three.js ซิงก์กับเนื้อร้อง → MP4 1920×1080 |
 | `short-ex-3d` | คลิปอธิบาย/สื่อการสอนแนวตั้ง 9:16 ไม่เกิน 45 วิ: บทเปิดด้วยคำถาม → เสียงพากย์ AI โอเพนซอร์ส (VoxCPM2) → ฉาก 3D จาก Blender + three.js → ซับในตัว ดนตรี และเสียงเอฟเฟกต์ → MP4 1080×1920 พร้อมแคปชันโพสต์ |
 | `long-ex` | วิดีโออธิบายแบ่งเป็นบท ค่าเริ่มต้น 1–5 นาที 16:9 1920×1080 ที่ 24 fps: ค้นข้อมูล → บทพากย์ → กำกับภาพ → สร้างฉากด้วย workflow ที่พร้อมใช้งาน → รวมเสียง ซับ และ MP4 พร้อมแหล่งอ้างอิง |
 
@@ -79,12 +79,19 @@ X="$(find ~/.claude/plugins -path '*bbn-video-studio*/skills/short-ex-3d/scripts
 echo 'export PY=$HOME/.venvs/bbn-video-studio/bin/python' >> ~/.zshrc && source ~/.zshrc
 "$X/doctor.sh"    # ต้องขึ้น ok ทุกบรรทัด (ACE-Step ไม่บังคับ)
 ```
-ให้ AI แต่งเพลงในเครื่อง (ไม่บังคับ แต่ `music-video` ต้องใช้ ถ้าไม่มี phaya):
+### สร้างเพลง: เลือกได้ 2 ทาง
+ทุกครั้งที่จะสร้างเพลง (เพลงร้องของ `music-video` หรือดนตรีประกอบของ `short-ex-3d`) Claude จะถามให้เลือก:
+1. **โอเพนซอร์ส (ฟรี)** — ACE-Step 1.5 รันในเครื่อง ไม่ต้องมีบัญชี ใช้ดิสก์ ~40 GB และ RAM 32 GB ติดตั้งตามด้านล่าง
+2. **phaya API (เสียเครดิต)** — คุณภาพระดับ Suno ได้ 2 เวอร์ชันใน 1–2 นาที (3 เครดิต) สมัคร เติมเครดิต และคัดลอก
+   API key ได้ที่ **https://phaya.io** แล้วเชื่อม phaya connector ใน Claude หรือตั้ง `PHAYA_API_KEY` เป็นตัวแปร env
+   (ห้ามใส่ key ในไฟล์ ถ้าวาง key ในแชทแล้ว ให้ rotate ทิ้ง)
+
+ติดตั้ง ACE-Step (ทางที่ 1):
 ```bash
 git clone https://github.com/ACE-Step/ACE-Step-1.5.git ~/ACE-Step-1.5 && cd ~/ACE-Step-1.5 && uv sync
 uv run acestep-download && uv run acestep-download -m acestep-v15-xl-sft && uv run acestep-download -m acestep-5Hz-lm-4B
 ```
-ถ้าไม่ลง ACE-Step: `short-ex-3d` ใช้เพลงที่มีสิทธิ์ใช้วางที่ `music/bed.wav` แทนได้, `music-video` ใช้ phaya ได้ (ตั้ง `PHAYA_API_KEY` เป็นตัวแปร env เท่านั้น ห้ามใส่ในไฟล์)
+ไม่อยากใช้ทั้งสองทาง: `short-ex-3d` ใช้เพลงที่มีสิทธิ์ใช้งาน วางไว้ที่ `music/bed.wav` แทนได้
 
 ## ใช้งาน
 ```

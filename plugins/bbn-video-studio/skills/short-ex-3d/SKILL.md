@@ -4,7 +4,7 @@ description: >-
   Make a ≤45 s vertical (9:16, 1080×1920) 3D explainer short end to end from Claude Code: hook-first narrated
   script, open-source designed TTS narrator (VoxCPM2 Voice Design), photoreal Blender EEVEE scenes rendered through
   one shared headless Blender bridge, three.js overlays locked to the Blender camera, real 3D brand logos from their
-  SVGs, burned-in captions, music bed (ACE-Step, optional) + SFX, MP4 + post caption in ~/Downloads. Scenes are
+  SVGs, burned-in captions, music bed (user's pick: open-source ACE-Step or phaya API) + SFX, MP4 + post caption in ~/Downloads. Scenes are
   built in parallel by Claude Code subagents. Thai by default. Use for "ทำคลิปสั้นอธิบาย", "ทำวิดีโอ 3D",
   "explainer video", "Blender animation", TikTok/Reels/Shorts explainers.
 ---
@@ -134,9 +134,15 @@ unreadable text inside glowing rings, beams crossing labels, mirror-like cores r
 one brand's mark alone on a neutral end card, badges clipped by the frame edge, frame 0 of a scene not composed.
 
 ## 7. Music + mix + render
+Music bed: ask the user once and let them pick (never pick for them). Write `music/caption.txt` first (both use it):
+1. **Open-source** — ACE-Step 1.5 locally (MIT, free, ~40 GB, install from the plugin README).
+2. **phaya API** — paid credits (3 = 2 takes), fast; sign up, top up and copy the API key at **https://phaya.io**.
+   `music/lyrics.txt` = `[Instrumental]` sends an instrumental request (prompt = caption, style = its first ≤100 chars).
+3. A licensed track the user supplies, saved as `music/bed.wav` (skip the generate line).
 ```bash
-"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python "$SKILL"/scripts/music.py music --bpm 118 --key "D minor" --duration 48 --lang en --seeds 1,2
-ffmpeg -i music/take0.wav -af loudnorm=I=-18:TP=-2 music/bed.wav     # or any licensed track as music/bed.wav
+"${ACESTEP_HOME:-$HOME/ACE-Step-1.5}"/.venv/bin/python "$SKILL"/scripts/music.py music --bpm 118 --key "D minor" --duration 48 --lang en --seeds 1,2   # 1
+PHAYA_SONG_DIR=music PHAYA_API_KEY=... "$SKILL"/../music-video/scripts/phaya_music.sh generate . "<slug> bed"                                    # 2
+ffmpeg -i music/take0.wav -af loudnorm=I=-18:TP=-2 music/bed.wav
 python3 sfx/mix.py                                                  # VO + ducked bed + SFX → video/public/song.mp3
 cd video && node tools/render.mjs --jobs 4 --out out/<slug>.mp4
 ```
@@ -149,5 +155,5 @@ loudness ≈ -15 LUFS, no pageerror in the render log.
 Film grain makes the master huge; ship a capped copy:
 `ffmpeg -i video/out/<slug>.mp4 -c:v libx264 -crf 18 -maxrate 16M -bufsize 32M -preset slow -c:a copy -movflags +faststart
 ~/Downloads/<slug>_<date>.mp4` + `~/Downloads/<slug>_<date>.txt` (title, description, hashtags, sources, credits:
-VoxCPM2 Voice Design TTS, Blender + three.js, ACE-Step music, trademarks note). Stop the bridge:
+VoxCPM2 Voice Design TTS, Blender + three.js, the music source (ACE-Step / phaya / the track's licence), trademarks note). Stop the bridge:
 `pkill -f blender/bridge.py`.
