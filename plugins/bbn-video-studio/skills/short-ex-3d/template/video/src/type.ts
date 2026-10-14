@@ -19,7 +19,8 @@ export function phrases(text: string) {
   const out: string[] = []
   for (const w of text.split(/\s+/).filter(Boolean)) {
     const last = out.at(-1)
-    if (last !== undefined && (len(last) < 7 || len(w) < 4) && len(last) + len(w) < 24) out[out.length - 1] = `${last} ${w}`
+    const open = last !== undefined && (last.split('*').length - 1) % 2 === 1 // never split inside a *highlighted* run
+    if (last !== undefined && (open || ((len(last) < 7 || len(w) < 4) && len(last) + len(w) < 24))) out[out.length - 1] = `${last} ${w}`
     else out.push(w)
   }
   return out

@@ -14,7 +14,7 @@ const root = resolve(import.meta.dirname, '..')
 const server = await createServer({ root, logLevel: 'error', server: { port: 0, hmr: false } }) // no live reload: workers write sibling scenes while others capture
 await server.listen()
 const url = `${server.resolvedUrls.local[0]}?render`
-const browser = await puppeteer.launch({ executablePath: CHROME, headless: true,
+const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, protocolTimeout: 300_000, // a busy machine stalls single frames past the 180 s default
   args: ['--hide-scrollbars', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader'] })
 
 async function page() {
