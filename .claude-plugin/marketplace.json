@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Video workflows for music videos, short vertical 3D explainers and chaptered longer explanations.",
-    "version": "0.2.5"
+    "version": "0.3.0"
   },
   "plugins": [
     {
       "name": "bbn-video-studio",
       "source": "./plugins/bbn-video-studio",
       "description": "Make music videos, short-ex-3d vertical clips and long-ex chaptered explanations with optional external scene workflows.",
-      "version": "0.2.5"
+      "version": "0.3.0"
     }
   ]
 }

@@ -5,6 +5,10 @@
 import os, re, sys
 os.environ.setdefault('VOXCPM_MPS_DTYPE', 'float32')  # Apple GPU: fp32 avoids garbled audio
 MODEL = os.environ.get('VOXCPM_MODEL', 'openbmb/VoxCPM2')  # Hugging Face id (downloads ~5 GB once) or a local folder
+# A bbn-voice-clone kit (OmniVoice + the voice owner's consented reference + profile.json): when set, it reads every
+# line instead of the designed narrator.
+KIT = os.environ.get('BBN_VOICE_KIT')
+KIT_PROFILE = os.environ.get('BBN_VOICE_PROFILE')  # optional profile JSON inside/next to the kit (default: kit's voice/profile.json)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', 'vo')
@@ -46,9 +50,24 @@ def spoken(text):
 assert thai_int(1858) == 'หนึ่งพันแปดร้อยห้าสิบแปด' and thai_int(200000) == 'สองแสน' and thai_int(21) == 'ยี่สิบเอ็ด'
 assert spoken('ใน 0.2 วินาที') == 'ใน ศูนย์ จุด สอง วินาที' and spoken('1,500 ชิ้น') == 'หนึ่งพันห้าร้อย ชิ้น'
 
+def kit_lines(ids, take, only):
+    import json, shutil, subprocess, tempfile
+    py = json.load(open(os.path.join(KIT, 'runtime', 'runtime.json')))['python']
+    for i, text in ids:
+        out = os.path.join(OUT, f'{i}_{take}.wav')
+        if os.path.exists(out) or (only and i not in only):
+            continue
+        with tempfile.TemporaryDirectory() as d:
+            with open(f'{d}/line.txt', 'w') as f:
+                f.write(spoken(text))
+            subprocess.run([py, os.path.join(KIT, 'skill', 'bbn-voice-clone', 'scripts', 'clone.py'), '--kit', KIT,
+                            '--text-file', f'{d}/line.txt', '--output', f'{d}/line.wav']
+                           + (['--profile', KIT_PROFILE] if KIT_PROFILE else []), check=True)
+            shutil.move(f'{d}/line.wav', out)
+        print('DONE', i, flush=True)
+
+
 if __name__ == '__main__':
-    import soundfile as sf
-    from voxcpm import VoxCPM
     take, only = (sys.argv[1] if len(sys.argv) > 1 else 'a'), set(sys.argv[2:])
     ids, sec, n = [], None, 0
     for line in open(os.path.join(HERE, '..', 'lyrics.txt')):
@@ -63,6 +82,11 @@ if __name__ == '__main__':
             print(i, spoken(t))
         sys.exit()
     os.makedirs(OUT, exist_ok=True)
+    if KIT:
+        kit_lines(ids, take, only)
+        sys.exit()
+    import soundfile as sf
+    from voxcpm import VoxCPM
     model = VoxCPM.from_pretrained(MODEL, load_denoiser=False, optimize=False)
     for i, text in ids:
         out = os.path.join(OUT, f'{i}_{take}.wav')

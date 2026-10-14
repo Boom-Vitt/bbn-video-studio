@@ -15,10 +15,10 @@ for raw in open(os.path.join(HERE, '..', 'lyrics.txt')):
         n += 1
         ids.append(f'{sec}-{n}')
 GAP = {}  # tight: a 45 s short has no pauses
-LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5
+LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.45, 0.25, 1.5
 SR = 48000
-TEMPO = float(os.environ.get('VO_TEMPO', '1.30'))  # pitch-kept speed-up (ffmpeg atempo); VO_TEMPO overrides per request
-PAUSE_MAX, PAUSE_TO = 0.28, 0.16  # inner silences longer than this shrink to PAUSE_TO seconds
+TEMPO = float(os.environ.get('VO_TEMPO', '1.0'))  # pitch-kept speed-up (ffmpeg atempo); VO_TEMPO overrides per request
+PAUSE_MAX, PAUSE_TO = 0.45, 0.28  # keep natural phrase pauses, only trim long gaps (tighter sounds choppy)
 
 
 def tighten(y):

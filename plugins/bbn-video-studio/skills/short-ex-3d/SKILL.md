@@ -1,8 +1,9 @@
 ---
 name: short-ex-3d
 description: >-
-  Make a ≤45 s vertical (9:16, 1080×1920) 3D explainer short end to end from Claude Code: hook-first narrated
-  script, open-source designed TTS narrator (VoxCPM2 Voice Design), photoreal Blender EEVEE scenes rendered through
+  Make a vertical (9:16, 1080×1920) 3D explainer short (≈45–90 s, length by content) end to end from Claude Code: hook-first narrated
+  script, narrated at natural pace (the owner's consented voice-clone kit when BBN_VOICE_KIT is set, else an open-source
+  designed TTS narrator, VoxCPM2 Voice Design), photoreal Blender EEVEE scenes rendered through
   one shared headless Blender bridge, three.js overlays locked to the Blender camera, real 3D brand logos from their
   SVGs, burned-in captions, music bed (user's pick: open-source ACE-Step or phaya API) + SFX, MP4 + post caption in ~/Downloads. Scenes are
   built in parallel by Claude Code subagents. Thai by default. Use for "ทำคลิปสั้นอธิบาย", "ทำวิดีโอ 3D",
@@ -12,14 +13,14 @@ description: >-
 # short-ex-3d
 
 Use this skill for short vertical 3D videos. For chaptered explanations or longer lessons, use the sibling
-`long-ex` skill; its timing and output contract are separate from this ≤45 s engine.
+`long-ex` skill; its timing and output contract are separate from this short-form engine.
 
 Proven on three Thai shorts (~45 s each): a neutral ChatGPT/Claude/Gemini product film, a mascot adventure
 ("where does your message go?") and a privacy explainer. `examples/` holds the first two (scripts, briefs, worker
 specs, Blender scripts, stills) — read them for the quality bar before writing your own.
 
 ```
-topic ─► script (hook-first, ≤45 s) ─► designed TTS voice ─► VO lines ─► whisper check ─► assemble ─► cues
+topic ─► script (hook-first, length by content) ─► narrator voice ─► VO lines ─► whisper check ─► assemble ─► cues
                        └─► logos/props (Blender) ─► brief + worker specs ─► parallel subagents (EEVEE plates + three.js)
 music bed + SFX mix ─► render ─► contact-sheet check ─► ~/Downloads (.mp4 + .txt caption)
 ```
@@ -27,9 +28,14 @@ music bed + SFX mix ─► render ─► contact-sheet check ─► ~/Downloads 
 ## Rules
 - Narration, not singing. Copy a reference's storytelling craft, never its content. Every factual claim needs a
   source (keep them in `ref/facts.md`); hedge what the sources hedge.
-- Voice: open-source TTS with a *designed* voice. Never clone a real person's voice without their written consent.
-- ≤ 45 s. Line 1 states the viewer's question at t≈0.1 s: no intro, no logo sting. Last line = next-episode teaser +
+- Voice: the owner's bbn-voice-clone kit (consented reference) when `BBN_VOICE_KIT` is set, else open-source TTS with a
+  *designed* voice. Never clone a real person's voice without their written consent.
+- Natural pace, length by content (≈45–90 s; no hard cap). Rushed, clipped narration was rejected by the owner: keep
+  `VO_TEMPO` 1.0 and the assembler's natural pauses. Line 1 speaks the hook at t≈0.1 s: no intro, no logo sting. Last line = next-episode teaser +
   "กดติดตาม" (or the language's follow CTA).
+- Something to share (repo, tool, template, source) = a comment gate, never "link below / in the description": the
+  closing line asks "คอมเมนต์ว่า <KEYWORD> เดี๋ยวส่งให้" (short keyword, shown big on the end card) and the post caption
+  repeats the ask with no URL to that resource, sources included; the owner sends it to commenters.
 - Photoreal 3D: Blender EEVEE plates + three.js. Blender ONLY through the shared bridge (`blender/bridge.py`): one
   headless Blender per machine, never the Blender app, never one Blender per worker (parallel launches crash GPU
   kernel compiles).
@@ -61,13 +67,14 @@ Layout: `song/` (lyrics.txt, scenes.json, voice/design.py + narrator.wav, myvoic
 ## 2. Script → `song/lyrics.txt`
 5 sections × 2 lines (`[hook] [a] [b] [c] [outro]`; unique lowercase a–z0–9 names, they become the line ids
 `hook-1`, `hook-2`, … in vo.py, assemble.py, cues.mjs, scenes.json and mix.py). `*word*` = yellow caption keyword.
-- **Length = content, not speed.** Aim for 42–45 s at the default 1.30 tempo: ~600 Thai characters of spoken text
-  (lyrics without `*` and newlines) for 10 lines ≈ 43 s; budget ~14 characters per second, then measure after
-  assemble. Too short → add substance (one more sourced number, a comparison, a consequence, what it means for the
-  viewer), never lower VO_TEMPO to fill time. Too long → cut words that repeat what the hook already said.
-- **Hook (two lines, ≈ 9 s).** hook-1 = the viewer's question + the options or stakes, spoken from t≈0.1 s
-  ("มีเงินก้อนนึง ตอนนี้ลงอะไรคุ้มสุด? ทอง พันธบัตร หรือบิตคอยน์"). hook-2 = the most surprising sourced number or
-  contrast + the promise ("ทองร่วงกว่าพันดอลลาร์ ส่วนดอกเบี้ยสหรัฐสูงสุดในรอบ 24 ปี ดูตัวเลขจริงใน 45 วิ"). On screen
+- **Length = content, not speed.** Natural pace runs ≈ 9–10 Thai characters per second (lyrics without `*` and
+  newlines): ~750 characters ≈ 80 s. Write full, easy sentences (sections may have 2–3 lines); measure after
+  assemble. Too thin → add substance (a sourced number, a comparison, what it means for the viewer). Never speed the
+  voice up to fit a length.
+- **Hook (two lines).** hook-1 names the famous subjects outright + the question, spoken from t≈0.1 s
+  ("มาแกะดูแอปชื่อดัง Claude ChatGPT Gemini Cursor และ Antigravity ว่าข้างในจริงๆ ทำมาจากอะไร",
+  "มีเงินก้อนนึง ตอนนี้ลงอะไรคุ้มสุด? ทอง พันธบัตร หรือบิตคอยน์"). hook-2 = the most surprising sourced number or
+  contrast + the promise ("ทองร่วงกว่าพันดอลลาร์ ส่วนดอกเบี้ยสหรัฐสูงสุดในรอบ 24 ปี ดูตัวเลขจริงกัน"). On screen
   the hook scene is composed at frame 0 (title + every option visible) and each option or number punches in on its
   spoken word (take word times from whisper `word_timestamps=True` on song/vo.wav).
 `song/scenes.json` maps each scene id to its first line. Loanwords get a spoken spelling in
@@ -82,14 +89,18 @@ pick clear words, lively pitch, ~5 syl/s; copy it to narrator.wav and set `PROMP
 $PY song/myvoice/vo.py a              # one wav per line: song/vo/<id>_a.wav   (vo.py a --print: the spoken text)
 $PY "$SKILL"/scripts/vocheck.py .     # whisper ratio per line; Latin words lower it, read the transcript
 ```
-The seed is fixed, so a retake needs changed wording and a new take letter: `vo.py b hook-2 outro-1`.
+The seed is fixed, so a retake needs changed wording and a new take letter: `vo.py b hook-2 outro-1`. Read the
+whisper text of every keyword the viewer must repeat (the comment-gate word): a short word glued to the next one can
+slur ("แกะแอป" came out "แก่แอป"; "แกะดูแอป" fixed it).
+Owner's voice: `export BBN_VOICE_KIT=~/agent-tools/bbn-voice-clone-kit` before vo.py; every line is read by the kit
+(OmniVoice) instead of the designed narrator.
 Other languages: rewrite `SAY`/`spoken()` (Thai number words) and the `DESC` texts; `VO_LANG=en` for vocheck.
 
-## 4. Assemble + cues (fit ≤ 45 s)
-`song/vo/assemble.py` uses each line's latest take, sped up with `TEMPO` (atempo, pitch kept), default **1.30**.
-When the user asks for another speed, run it with `VO_TEMPO=<x>` (e.g. `VO_TEMPO=1.15` slower, `1.4` faster).
-`LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.3, 0.15, 1.5`. Over 45 s: trim words, keep VO_TEMPO. Under ~40 s: add
-content (section 2), keep VO_TEMPO. Change the tempo only when the user asks for a speed.
+## 4. Assemble + cues
+`song/vo/assemble.py` uses each line's latest take at natural pace (`VO_TEMPO` default **1.0**; atempo, pitch kept).
+Change it only when the user asks for a speed (`VO_TEMPO=1.1`). `LEAD, SEC_GAP, LINE_GAP, TAIL = 0.1, 0.45, 0.25, 1.5`;
+inner pauses over 0.45 s shrink to 0.28 s. Tighter values (0.28→0.16 pauses, 1.30 tempo) sounded clipped and
+rushed to the owner.
 ```bash
 $PY song/vo/assemble.py && cd video && node tools/cues.mjs --align ../song/vo.timing.json --endcard 0
 ```
@@ -129,7 +140,9 @@ re-render only the affected frames, check with `render.mjs --still`.
 Keep the bridge alive while workers render (it blocks everyone if it dies):
 `while true; do pgrep -f blender/bridge.py >/dev/null || { "${BLENDER:-/Applications/Blender.app/Contents/MacOS/Blender}"
 --background --factory-startup --python blender/bridge.py >> blender/bridge.log 2>&1 & sleep 40; }; sleep 15; done &`
-Review checklist (each caught a real problem): clipped white blobs (emissive panels, hot lights near the floor),
+Review checklist (each caught a real problem): clipped white blobs (emissive panels, hot lights near the floor; the
+stage bloom threshold is 0.72 and applies to the Blender plate too — keep white logos, brushed metal and mirror-like
+clearcoats under ~0.65 luminance, measure plate frames with numpy, and cap additive opacity spikes),
 unreadable text inside glowing rings, beams crossing labels, mirror-like cores reflecting area lights as "eyes",
 one brand's mark alone on a neutral end card, badges clipped by the frame edge, frame 0 of a scene not composed.
 
@@ -155,6 +168,6 @@ loudness ≈ -15 LUFS, no pageerror in the render log.
 ## 8. Deliver
 Film grain makes the master huge; ship a capped copy:
 `ffmpeg -i video/out/<slug>.mp4 -c:v libx264 -crf 18 -maxrate 16M -bufsize 32M -preset slow -c:a copy -movflags +faststart
-~/Downloads/<slug>_<date>.mp4` + `~/Downloads/<slug>_<date>.txt` (title, description, hashtags, sources, credits:
+~/Downloads/<slug>_<date>.mp4` + `~/Downloads/<slug>_<date>.txt` (title, description, comment-gate ask, hashtags, sources, credits:
 VoxCPM2 Voice Design TTS, Blender + three.js, the music source (ACE-Step / phaya / the track's licence), trademarks note). Stop the bridge:
 `pkill -f blender/bridge.py`.
